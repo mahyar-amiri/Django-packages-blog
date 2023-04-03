@@ -1,0 +1,6 @@
+{% extends 'rating/info/info_base.html' %}
+{% block main %}
+    <span class="font-semibold">
+        Average: {% if count %}{{ average }} out of {{ count }}{% else %}Rate to be the first!{% endif %}
+    </span>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'blog/article_base.html' %}
+{% load static %}
+
+{% block body %}
+    <div class="w-full max-w-md mx-auto my-8 px-8 py-8 sm:px-12 lg:px-16 max-w-full">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">Sign up</h2>
+        <form method="post" action="{% url 'blog:signup' %}" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">{% csrf_token %}
+            <lord-icon
+                    src="https://cdn.lordicon.com/lfqstkwj.json"
+                    trigger="loop"
+                    delay="10000"
+                    colors="outline:#121331,primary:#1663c7,secondary:#ffffff"
+                    class="flex mx-auto"
+                    style="width:150px;height:150px">
+            </lord-icon>
+            {% for field in form %}
+                <div class="py-2">
+                    <label class="block text-gray-700 font-bold mb-2" for="{{ field.name }}">{{ field.label }}</label>
+                    <input
+                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            id="id_{{ field.name }}" name="{{ field.name }}" type="{% if 'password' in field.name %}password{% else %}text{% endif %}" placeholder="{{ field.label }}">
+                    {% if field.errors %}
+                        {% for error in field.errors %}
+                            <div class="text-sm text-red-500">{{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <div class="flex items-center justify-between mt-4">
+                <input type="hidden" name="next" value="/">
+                <button
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        type="submit">
+                    Sign up
+                </button>
+            </div>
+            {% if form.errors %}
+                <div class="text-sm text-red-500 pt-2">{{ form.non_field_errors }}</div>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}

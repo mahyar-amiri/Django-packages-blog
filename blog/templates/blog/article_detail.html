@@ -1,0 +1,82 @@
+{% extends 'blog/article_base.html' %}
+{% load static %}
+
+{% load comment_tags %}
+{% load rating_tags %}
+{% load reaction_tags %}
+
+{% block body %}
+    <link rel="stylesheet" href="{% static 'blog/css/markdown.css' %}">
+    {% render_rating_import %}
+    {% render_reaction_import %}
+    <!-- Page Content -->
+    <div class="mx-auto my-8 px-8 py-8 sm:px-12 lg:px-16 max-w-full min-w-full">
+        <!-- Content -->
+        <div class="overflow-hidden rounded-lg shadow-md bg-white">
+            <img src="{{ article.image.url }}" alt="Blog Post" class="h-72 w-full object-contain"/>
+            <div class="p-6">
+                <h2 class="mb-2 text-3xl font-bold">{{ article.title }}</h2>
+                <div id="markdown" class="text-black py-2">
+                    {{ article.content|safe }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Rating -->
+        <div class="overflow-hidden rounded-lg shadow-md bg-white mt-4 p-4">
+            <div class="text-2xl font-semibold mb-2 text-[#1663c7]">
+                Rating Section
+                <lord-icon
+                        src="https://cdn.lordicon.com/pnhskdva.json"
+                        trigger="loop"
+                        delay="2000"
+                        colors="primary:#1663c7"
+                        state="morph"
+                        class="h-6 w-6">
+                </lord-icon>
+            </div>
+            <div class="pt-2">
+                {% render_rating request=request obj=article settings_slug='default-config' %}
+                {% render_rating_info request=request obj=article settings_slug='default-config' custom_template='blog/utils/rating_info.html' %}
+            </div>
+            <hr class="my-4 border-gray-300">
+            <div class="font-semibold">Like this post 😍</div>
+            <div class="pt-2 flex">
+                {% render_rating request=request obj=article settings_slug='like-config' %}
+                {% render_rating_info request=request obj=article settings_slug='like-config' custom_template='blog/utils/like_info.html' %}
+            </div>
+        </div>
+
+        <!-- Reaction -->
+        <div class="overflow-hidden rounded-lg shadow-md bg-white mt-4 p-4">
+            <div class="text-2xl font-semibold mb-2 text-[#1663c7]">
+                Reaction Section
+                <lord-icon
+                        src="https://cdn.lordicon.com/fsghhhtr.json"
+                        trigger="loop"
+                        delay="2000"
+                        colors="primary:#1663c7"
+                        state="hover">
+                </lord-icon>
+            </div>
+            {% render_reaction request=request obj=article settings_slug='default-config' %}
+        </div>
+
+        <!-- Comment -->
+        <div class="overflow-hidden rounded-lg shadow-md bg-white mt-4">
+            <div class="pt-4 pl-4 text-2xl font-semibold mb-2 text-[#1663c7]">
+                Comment Section
+                <lord-icon
+                        src="https://cdn.lordicon.com/hpivxauj.json"
+                        trigger="loop"
+                        delay="2000"
+                        colors="primary:#1663c7"
+                        state="hover">
+                </lord-icon>
+            </div>
+            {% render_comments request obj=article settings_slug='default-config' %}
+        </div>
+    </div>
+    {% render_rating_script %}
+    {% render_reaction_script %}
+{% endblock %}

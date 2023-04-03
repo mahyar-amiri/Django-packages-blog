@@ -1,0 +1,85 @@
+#markdown pre {
+    padding: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    background-color: #1F2937;
+    border-radius: 0.5rem;
+    display: block;
+    width: auto;
+    overflow-x: auto;
+}
+
+#markdown code {
+    color: white;
+}
+
+#markdown code:not([class]) {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    white-space: break-spaces;
+    background-color: #475569;
+    border-radius: 6px;
+}
+
+#markdown #badges a {
+    display: inline-block;
+}
+
+#markdown #table-of-contents ~ ul {
+    padding-left: 2rem;
+}
+
+#markdown h2 {
+    font-size: 2rem;
+    line-height: 3rem;
+    font-weight: 700;
+    padding-top: 1rem;
+}
+
+#markdown h3 {
+    font-size: 1.5rem;
+    line-height: 2.5rem;
+    font-weight: 700;
+    padding-top: 1rem;
+}
+
+#markdown ul {
+    padding-left: 1rem;
+    list-style-type: disc;
+}
+
+#markdown ol {
+    padding-left: 1rem;
+    list-style-type: decimal;
+}
+
+#markdown a {
+    color: #3B82F6;
+}
+
+/* Firefox */
+#markdown pre {
+    scrollbar-width: thin;
+    scrollbar-color: #9ca3af #1F2937;
+}
+
+/* Chrome, Edge, and Safari */
+#markdown pre::-webkit-scrollbar {
+    height: 5px;
+}
+
+#markdown pre::-webkit-scrollbar-track {
+    background: #1F2937;
+    border-radius: 0 0 5rem 5rem;
+}
+
+#markdown pre::-webkit-scrollbar-thumb {
+    background-color: #9ca3af;
+    border-radius: 5px;
+}
+
+#markdown pre::-webkit-resizer {
+    border-width: 5px;
+    border-style: solid;
+}
