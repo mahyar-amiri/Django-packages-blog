@@ -1,10 +1,14 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, TemplateView
 from django.views.generic import ListView, DetailView
 
 from .models import Article
+
+User = get_user_model()
 
 
 class HomeView(ListView):
@@ -13,6 +17,11 @@ class HomeView(ListView):
 
 class ArticleView(DetailView):
     model = Article
+
+
+class UserView(LoginRequiredMixin, TemplateView):
+    login_url = reverse_lazy('blog:login')
+    template_name = 'blog/auth/profile.html'
 
 
 class SignUp(CreateView):

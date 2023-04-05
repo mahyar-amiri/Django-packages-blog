@@ -1,0 +1,143 @@
+{% extends 'blog/article_base.html' %}
+{% block body %}
+    <div class="mx-auto my-8 p-4 sm:px-12 lg:px-16 max-w-full min-w-full">
+
+        Here you can see your interactions. <a href="{% url 'blog:logout' %}" class="text-blue-500 font-semibold">Log out</a>
+
+        <!-- Rating -->
+        <div class="overflow-hidden rounded-lg shadow-md bg-white p-4 mt-4">
+            <div class="text-2xl font-semibold mb-2 text-[#1663c7]">
+                Rating
+                <lord-icon
+                        src="https://cdn.lordicon.com/pnhskdva.json"
+                        trigger="loop"
+                        delay="2000"
+                        colors="primary:#1663c7"
+                        state="morph"
+                        class="h-6 w-6">
+                </lord-icon>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="table w-full border-collapse border border-gray-300">
+                    <thead>
+                    <tr>
+                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">Article</th>
+                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">Rate</th>
+                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">Type</th>
+                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">updated</th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+
+                    {% for rt in user.ratings.all %}
+                        <tr class="bg-blue-50">
+                            <td class="px-6 py-4 whitespace-nowrap border border-gray-300">{{ rt.rating.content_object }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap border border-gray-300">{{ rt.rate }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap border border-gray-300">
+                                <img src="{{ rt.rating.settings.icon.url }}" style="height: 24px; display: inline">
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap border border-gray-300">{{ rt.updated }}</td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Reaction -->
+        <div class="overflow-hidden rounded-lg shadow-md bg-white p-4 mt-4">
+            <div class="text-2xl font-semibold mb-2 text-[#1663c7]">
+                Reaction
+                <lord-icon
+                        src="https://cdn.lordicon.com/fsghhhtr.json"
+                        trigger="loop"
+                        delay="2000"
+                        colors="primary:#1663c7"
+                        state="hover">
+                </lord-icon>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="table w-full border-collapse border border-gray-300">
+                    <thead>
+                    <tr>
+                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">Article</th>
+                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">React Emoji</th>
+                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">React Source</th>
+                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">updated</th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+
+                    {% for rc in user.reactions.all %}
+                        <tr class="bg-blue-50">
+                            <td class="px-6 py-4 whitespace-nowrap border border-gray-300">{{ rc.reaction.content_object }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap border border-gray-300">{{ rc.react.emoji }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap border border-gray-300">
+                                {% if rc.react.source %}
+                                    <img src="{{ rc.react.source.url }}" style="height: 24px; display: inline">
+                                {% else %}
+                                    <span>None</span>
+                                {% endif %}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap border border-gray-300">{{ rc.updated }}</td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Comment -->
+        <div class="overflow-hidden rounded-lg shadow-md bg-white p-4 mt-4">
+            <div class="text-2xl font-semibold mb-2 text-[#1663c7]">
+                Comments
+                <lord-icon
+                        src="https://cdn.lordicon.com/hpivxauj.json"
+                        trigger="loop"
+                        delay="2000"
+                        colors="primary:#1663c7"
+                        state="hover">
+                </lord-icon>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="table w-full border-collapse border border-gray-300">
+                    <thead>
+                    <tr>
+                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">Article</th>
+                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">Content</th>
+                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">Reply to</th>
+                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">Status</th>
+                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">Spoiler</th>
+                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">Pinned</th>
+                        <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider border border-gray-300">updated</th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+
+                    {% for cm in user.comments.all %}
+                        <tr class="bg-blue-50">
+                            <td class="px-6 py-4 whitespace-nowrap border border-gray-300">{{ cm.content_object }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap border border-gray-300">{{ cm.content }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap border border-gray-300">
+                                {% if cm.parent %}
+                                    [{{ cm.parent.user.username }}] {{ cm.parent.content|truncatewords:5 }}
+                                {% else %}
+                                    None
+                                {% endif %}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap border border-gray-300"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full{% if cm.status == 'a' %} text-green-800 bg-green-200{% elif cm.status == 'r' %} text-red-800 bg-red-200{% elif cm.status == 'd' %} text-gray-800 bg-gray-300{% endif %}">{{ cm.get_status_display }}</span></td>
+                            <td class="px-6 py-4 whitespace-nowrap border border-gray-300">{% if cm.is_spoiler %}✔{% else %}❌{% endif %}</td>
+                            <td class="px-6 py-4 whitespace-nowrap border border-gray-300">{% if cm.is_pinned %}✔{% else %}❌{% endif %}</td>
+                            <td class="px-6 py-4 whitespace-nowrap border border-gray-300">{{ cm.updated }}</td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
