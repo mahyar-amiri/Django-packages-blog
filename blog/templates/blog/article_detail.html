@@ -7,8 +7,6 @@
 
 {% block body %}
     <link rel="stylesheet" href="{% static 'blog/css/markdown.css' %}">
-    <link rel="stylesheet" href="{% static 'rating/css/style.min.css' %}">
-    <link rel="stylesheet" href="{% static 'reaction/css/style.min.css' %}">
 
     <!-- Page Content -->
     <div class="mx-auto my-8 px-4 py-8 sm:px-12 lg:px-16 max-w-full min-w-full">
@@ -37,12 +35,14 @@
                 </lord-icon>
             </div>
             <div class="pt-2">
+                {% render_rating_import %}
                 {% render_rating request=request obj=article settings_slug='default-config' %}
                 {% render_rating_info request=request obj=article settings_slug='default-config' custom_template='blog/rating_templates/rating_info.html' %}
             </div>
             <hr class="my-4 border-gray-300">
             <div class="font-semibold">Like this post 😍</div>
             <div class="pt-2 flex">
+                {% render_reaction_import %}
                 {% render_rating request=request obj=article settings_slug='like-config' %}
                 {% render_rating_info request=request obj=article settings_slug='like-config' custom_template='blog/rating_templates/like_info.html' %}
             </div>
