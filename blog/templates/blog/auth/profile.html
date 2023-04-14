@@ -127,7 +127,7 @@
                                 {% if comment.parent %}
                                     [{{ comment.parent.user.username }}] {{ comment.parent.content|truncatewords:5 }}
                                 {% else %}
-                                    None
+                                    ❌
                                 {% endif %}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap border border-gray-300"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full{% if comment.status == 'a' %} text-green-800 bg-green-200{% elif comment.status == 'r' %} text-red-800 bg-red-200{% elif comment.status == 'd' %} text-gray-800 bg-gray-300{% endif %}">{{ comment.get_status_display }}</span></td>
