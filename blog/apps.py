@@ -1,4 +1,5 @@
 from django.apps import AppConfig
+from django.conf import settings
 
 
 class BlogConfig(AppConfig):
@@ -6,4 +7,5 @@ class BlogConfig(AppConfig):
     name = 'blog'
 
     def ready(self):
-        import blog.signals
+        if not settings.DEBUG:
+            pass

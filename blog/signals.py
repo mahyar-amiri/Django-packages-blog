@@ -1,4 +1,5 @@
 import telebot
+from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 from decouple import config
 
 from django.db.models.signals import post_save
@@ -16,9 +17,17 @@ bot = telebot.TeleBot(TOKEN, parse_mode='HTML')
 User = get_user_model()
 
 
+def markup_kb(urlhash):
+    markup = InlineKeyboardMarkup(row_width=2)
+    markup.add(InlineKeyboardButton('Accept ✅', callback_data=f'cb_accept_{urlhash}'), InlineKeyboardButton('Reject ❌', callback_data=f'cb_reject_{urlhash}'))
+    markup.add(InlineKeyboardButton('Accept Edit ✅', callback_data=f'cb_edit_accept_{urlhash}'), InlineKeyboardButton('Reject Edit ❌', callback_data=f'cb_edit_reject_{urlhash}'))
+    markup.add(InlineKeyboardButton('Pin 📌', callback_data=f'cb_pin_{urlhash}'), InlineKeyboardButton('Spoiler 👁️‍🗨️', callback_data=f'cb_spoiler_{urlhash}'))
+    return markup
+
+
 @receiver(post_save, sender=User, dispatch_uid="user")
 def user(sender, instance, **kwargs):
-    message = f'#User\n\n#{instance.username} joined us 🎉'
+    message = f'#User\n\n#{instance.username} logged in' if instance.last_login else f'#User\n\n#{instance.username} joined us 🎉'
     bot.send_message(chat_id, message)
 
 
@@ -28,7 +37,7 @@ def comment(sender, instance, **kwargs):
     comment_content = instance.content_main if instance.status_edited != 'd' else f'<s>{instance.content_main}</s>\n{instance.content}'
     comment_content = f'<tg-spoiler>{comment_content}</tg-spoiler>' if instance.is_spoiler else comment_content
     message = f'#Comment\n\n#{instance.user.username} {comment_type} on <b>{instance.content_object}</b>\n\n<i>{comment_content}</i>'
-    bot.send_message(chat_id, message)
+    bot.send_message(chat_id, message, reply_markup=markup_kb(instance.urlhash))
 
 
 @receiver(post_save, sender=Reaction, dispatch_uid="comment_reaction")
