@@ -5,17 +5,17 @@
     <div class="w-full max-w-md mx-auto my-8 px-8 py-8 sm:px-12 lg:px-16 max-w-full">
         <div class="bg-white shadow-md rounded px-8 pt-6 pb-8">
             <div class="flex items-center justify-center mb-6">
-                <h2 class="text-3xl font-bold text-gray-800">Sign up</h2>
+                <h2 class="text-3xl font-bold text-gray-800">Page not found</h2>
                 <lord-icon
                         src="https://cdn.lordicon.com/fmnowuba.json"
                         trigger="loop"
                         delay="1000"
-                        colors="outline:#121331,primary:#1663c7,secondary:#ffffff"
+                        colors="primary:#1663c7,secondary:#e83a30"
                         class="w-16 h-16">
                 </lord-icon>
             </div>
             <div class="flex items-center justify-between mt-4">
-                <div class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline"><a href="{% url 'blog:home' %}">Back to Home</a></div>
+                <a href="{% url 'blog:home' %}"><div class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline">Back to Home</div></a>
             </div>
         </div>
     </div>

@@ -8,4 +8,4 @@ class BlogConfig(AppConfig):
 
     def ready(self):
         if not settings.DEBUG:
-            pass
+            import blog.signals
